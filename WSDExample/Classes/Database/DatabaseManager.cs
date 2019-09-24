@@ -16,7 +16,7 @@ namespace WSDExample.Classes.Database
         private string password = "";
         
         private string BASE_DATABASE_URL =
-            "Data Source={0};Initial Catalog={1};Integrated Security={2};Trusted_Connection=Yes;DataBase={3};";
+            "Data Source={0};Integrated Security={1};Trusted_Connection=Yes;Initial Catalog = {2}";
 
         private string USER_AUTH =
             "User ID={0};Password={1};";
@@ -24,12 +24,14 @@ namespace WSDExample.Classes.Database
         private string connectionUri = "";
 
         private bool connected = false;
+
+        private SqlConnection connection;
         
-        public DatabaseManager(string _dataSource, string _database, string _table)
+        public DatabaseManager(string _dataSource, string _database)
         {
             dataSource = _dataSource;
             database = _database;
-            connectionUri = String.Format(BASE_DATABASE_URL, dataSource, table, true, database);
+            connectionUri = String.Format(BASE_DATABASE_URL, dataSource, true, database);
             Connect();
         }
         
@@ -42,10 +44,33 @@ namespace WSDExample.Classes.Database
             Connect();
         }
 
+        public bool Auth(string login, string password)
+        {
+            var command = new SqlCommand
+            {
+                CommandText = $"SELECT * FROM Users WHERE login = '{login}' AND password = '{password}'"
+            };
+            command.Connection = connection;
+            var result = false;
+            try
+            {
+                using (var reader = command.ExecuteReader())
+                {
+                    result = reader.Read();
+                    reader.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                result = false;
+            }
+            
+            return result;
+        }
 
         private void Connect()
-        {
-            SqlConnection connection = new SqlConnection(connectionUri);
+        { 
+            connection = new SqlConnection(connectionUri);
             try
             {
                 connection.Open();
@@ -53,7 +78,20 @@ namespace WSDExample.Classes.Database
             }
             catch (Exception e)
             {
-                MessageBox.Show("Connection error", "Error");
+                MessageBox.Show($"Connection error {e.Message}", "Error");
+            }
+        }
+
+        ~DatabaseManager()
+        {
+            try
+            {
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
         }
     }
