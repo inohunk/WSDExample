@@ -30,7 +30,7 @@ namespace WSDExample.Classes.Database
             dataSource = _dataSource;
             database = _database;
             connectionUri = String.Format(BASE_DATABASE_URL, dataSource, table, true, database);
-            connect();
+            Connect();
         }
         
         public DatabaseManager(string _dataSource, string _database, string _table, string _login, string _password)
@@ -39,11 +39,11 @@ namespace WSDExample.Classes.Database
             database = _database;
             connectionUri = String.Format(BASE_DATABASE_URL, dataSource, table, true, database);
             connectionUri += ";" + String.Format(USER_AUTH, _login, _password);
-            connect();
+            Connect();
         }
 
 
-        private void connect()
+        private void Connect()
         {
             SqlConnection connection = new SqlConnection(connectionUri);
             try
@@ -55,18 +55,6 @@ namespace WSDExample.Classes.Database
             {
                 MessageBox.Show("Connection error", "Error");
             }
-        }
-        
-        public DataTable authInDb(string selectSQL)
-        {
-            DataTable dataTable = new DataTable("dataBase");
-            SqlConnection connection = new SqlConnection("");
-            connection.Open();
-            SqlCommand sql = connection.CreateCommand();
-            sql.CommandText = selectSQL;
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sql);
-            sqlDataAdapter.Fill(dataTable);
-            return dataTable;
         }
     }
 }
