@@ -2,6 +2,7 @@ using System;
 using System.Data.SqlClient;
 using System.Windows;
 using WSDExample.Classes.Database;
+using WSDExample.UI;
 
 namespace WSDExample
 {
@@ -17,7 +18,15 @@ namespace WSDExample
         public void LoginButton_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             var res = dbManager.Auth(LoginTextBox.Text.ToString(), PasswordTextBox.Password.ToString());
-            MessageBox.Show(res.ToString(), "Success");
+            if (res)
+            {
+                new GeneralWindow().Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Incorrect login/pass", "Error");
+            }
 
         }
 

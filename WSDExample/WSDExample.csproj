@@ -54,6 +54,9 @@
     <Compile Include="UI\AuthWindow.xaml.cs">
       <DependentUpon>AuthWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\GeneralWindow.xaml.cs">
+      <DependentUpon>GeneralWindow.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -80,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="UI\AuthWindow.xaml" />
+    <Page Include="UI\GeneralWindow.xaml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
