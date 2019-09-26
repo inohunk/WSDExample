@@ -185,9 +185,5 @@ namespace WSDExample.Classes.Database
             }
 
         }
-		private static void ReadSingleRow(IDataRecord record)
-		{
-			Console.WriteLine(String.Format("{0}, {1}", record[0], record[1]));
-		}
 	}
 }
