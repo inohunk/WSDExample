@@ -2,6 +2,7 @@ using System;
 using System.Data.SqlClient;
 using System.Windows;
 using WSDExample.Classes.Database;
+using WSDExample;
 using WSDExample.UI;
 
 namespace WSDExample
@@ -12,39 +13,22 @@ namespace WSDExample
         public AuthWindow()
         {
             InitializeComponent();
-			var machineName = System.Environment.UserDomainName;
-			if(machineName == "LAPTOP-9G8HOK7A")
-			{
-				machineName += "\\RISOLIN";
-			}
-            dbManager = DatabaseManager.getInstance($"{System.Environment.UserDomainName}", "usersdb");
+            dbManager = new DatabaseManager("DESKTOP-OO2V3AM", "usersdb");
         }
 
         public void LoginButton_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             var res = dbManager.Auth(LoginTextBox.Text.ToString(), PasswordTextBox.Password.ToString());
-            if (res != -1)
+            MessageBox.Show(res.ToString(), "Success");
+            if (res)
             {
-                new GeneralWindow(res).Show();
-                this.Close();
+                new MainWindow().Show();
             }
-            else
-            {
-                MessageBox.Show("Incorrect login/pass", "Error");
-            }
-
         }
 
         public void RegisterButton_Click(object sender, RoutedEventArgs routedEventArgs)
         {
-			var res = dbManager.Register(LoginTextBox.Text, PasswordTextBox.Password);
-			if (res)
-			{
-				MessageBox.Show("Success!");
-			}else
-			{
-				MessageBox.Show("Register Error");
-			}
+            
         }
         
         
