@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows;
 
 namespace WSDExample.Classes.Database
 {
@@ -126,7 +126,7 @@ namespace WSDExample.Classes.Database
             var result = false;
             if (connected)
             {
-                var command = new SqlCommand($"insert into users([login],[password]) values('{login}', '{password}')", connection);
+                var command = new SqlCommand($"INSERT INTO users([login],[password]) VALUES('{login}', '{password}')", connection);
                 try
                 {
 
@@ -149,7 +149,7 @@ namespace WSDExample.Classes.Database
             var result = false;
             if (connected)
             {
-                var command = new SqlCommand($"delete from users where [login] = '{login}' and [password] = '{password}'", connection);
+                var command = new SqlCommand($"DELETE FROM users WHERE [login] = '{login}' and [password] = '{password}'", connection);
                 try
                 {
                     var reader = command.ExecuteNonQuery();
