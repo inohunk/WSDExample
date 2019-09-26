@@ -12,7 +12,7 @@ namespace WSDExample
         public AuthWindow()
         {
             InitializeComponent();
-            dbManager = new DatabaseManager("DESKTOP-OO2V3AM", "usersdb");
+            dbManager = DatabaseManager.getInstance("DESKTOP-OO2V3AM", "usersdb");
         }
 
         public void LoginButton_Click(object sender, RoutedEventArgs routedEventArgs)
