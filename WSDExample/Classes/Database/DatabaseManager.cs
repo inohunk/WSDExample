@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -83,18 +84,15 @@ namespace WSDExample.Classes.Database
             }
         }
 
-        public bool Auth(string login, string password)
+        public int Auth(string login, string password)
 
         {
 
-            var result = false;
+            var result = -1;
 
             if (connected)
 
             {
-
-
-
                 var command = new SqlCommand(
 
                     $"SELECT * FROM users WHERE login = '{login}' AND password = '{password}'",
@@ -106,10 +104,12 @@ namespace WSDExample.Classes.Database
                 {
 
                     var reader = command.ExecuteReader();
-
-                    result = reader.Read();
-
-                    reader.Close();
+					
+					if (reader.Read())
+					{
+						result = int.Parse(((IDataReader)reader)[0].ToString());
+					}
+					reader.Close();
 
                 }
 
@@ -182,10 +182,12 @@ namespace WSDExample.Classes.Database
 
                 Console.WriteLine(e);
 
-                throw;
-
             }
 
         }
-    }
+		private static void ReadSingleRow(IDataRecord record)
+		{
+			Console.WriteLine(String.Format("{0}, {1}", record[0], record[1]));
+		}
+	}
 }
