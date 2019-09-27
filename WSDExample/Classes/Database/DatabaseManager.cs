@@ -174,13 +174,14 @@ namespace WSDExample.Classes.Database
                 try
                 {
                     var reader = command.ExecuteReader();
+					reader.Read();
                     result.id = reader.GetInt32(0);
                     result.login = reader.GetString(1);
                     result.password = reader.GetString(2);
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show($"Delete error {e.Message}", "Error");
+                    MessageBox.Show($"Get user error {e.Message}", "Error");
                 }
             }
             return result;
