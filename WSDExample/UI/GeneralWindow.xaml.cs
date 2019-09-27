@@ -10,14 +10,25 @@ namespace WSDExample.UI
 		public GeneralWindow(int id)
         {
             InitializeComponent();
-			MessageBox.Show(id.ToString());
 			var machineName = System.Environment.UserDomainName;
             
 			dbManager = DatabaseManager.getInstance($"{System.Environment.UserDomainName}", "usersdb");
 
             var user = dbManager.GetUserById(id);
-            userNameLabel.Content = user.login;
+            userNameLabel.Content = $"Welcome, {user.login}";
 			
 		}
-    }
+
+		private void Logout_Click(object sender, RoutedEventArgs e)
+		{
+			var window = new AuthWindow();
+			window.Show();
+			this.Close();
+		}
+
+		private void Exit_Click(object sender, RoutedEventArgs e)
+		{
+			Application.Current.Shutdown();
+		}
+	}
 }
