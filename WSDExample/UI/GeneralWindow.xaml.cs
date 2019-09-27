@@ -16,9 +16,11 @@ namespace WSDExample.UI
 			{
 				machineName += "\\RISOLIN";
 			}
+            
 			dbManager = DatabaseManager.getInstance($"{System.Environment.UserDomainName}", "usersdb");
 
-			
+            var user = dbManager.GetUserById(id);
+            userNameLabel.Content = user.login;
 			
 		}
     }

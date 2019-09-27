@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using WSDExample.Classes.Models;
 
 namespace WSDExample.Classes.Database
 {
@@ -104,12 +105,12 @@ namespace WSDExample.Classes.Database
                 {
 
                     var reader = command.ExecuteReader();
-					
-					if (reader.Read())
-					{
-						result = int.Parse(((IDataReader)reader)[0].ToString());
-					}
-					reader.Close();
+
+                    if (reader.Read())
+                    {
+                        result = int.Parse(((IDataReader)reader)[0].ToString());
+                    }
+                    reader.Close();
 
                 }
 
@@ -164,6 +165,26 @@ namespace WSDExample.Classes.Database
             return result;
         }
 
+        public User GetUserById(int id)
+        {
+            var result = new User();
+            if (connected)
+            {
+                var command = new SqlCommand($"SELECT * FROM users WHERE [id] = '{id}'", connection);
+                try
+                {
+                    var reader = command.ExecuteReader();
+                    result.id = reader.GetInt32(0);
+                    result.login = reader.GetString(1);
+                    result.password = reader.GetString(2);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show($"Delete error {e.Message}", "Error");
+                }
+            }
+            return result;
+        }
         ~DatabaseManager()
 
         {
@@ -185,5 +206,5 @@ namespace WSDExample.Classes.Database
             }
 
         }
-	}
+    }
 }
