@@ -13,10 +13,6 @@ namespace WSDExample
         {
             InitializeComponent();
 			var machineName = System.Environment.UserDomainName;
-			if(machineName == "LAPTOP-9G8HOK7A")
-			{
-				machineName += "\\RISOLIN";
-			}
             dbManager = DatabaseManager.getInstance($"{System.Environment.UserDomainName}", "usersdb");
         }
 
