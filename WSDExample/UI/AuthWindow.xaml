@@ -16,6 +16,6 @@
         <TextBox Name="LoginTextBox" HorizontalAlignment="Center" Height="30" TextWrapping="Wrap" Width="150" Margin="5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         <PasswordBox Name="PasswordTextBox" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="150" Margin="5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
         <Button Content="Login" HorizontalAlignment="Center" Width="150" Height="25" Click="LoginButton_Click"/>
-        <Button Content="Register" HorizontalAlignment="Center" Width="150" Height="25" Margin="5"/>
+        <Button Content="Register" HorizontalAlignment="Center" Width="150" Height="25" Margin="5" Click="RegisterButton_Click"/>
     </StackPanel>
 </Window>
